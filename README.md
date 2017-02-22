@@ -1,2 +1,2 @@
 # doge-tasks-service
-A microservice for Doge Tasks.....
+A microservice for Doge Tasks!
