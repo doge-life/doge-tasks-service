@@ -14,10 +14,7 @@ gradle-app.setting
 gradle/wrapper/gradle-wrapper.properties
 
 # IntelliJ stuff
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/libraries/
-.idea/gradle.xml
+.idea
 
 # OS X
 .DS_Store
