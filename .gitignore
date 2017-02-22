@@ -18,3 +18,6 @@ gradle/wrapper/gradle-wrapper.properties
 .idea/tasks.xml
 .idea/libraries/
 .idea/gradle.xml
+
+# OS X
+.DS_Store
