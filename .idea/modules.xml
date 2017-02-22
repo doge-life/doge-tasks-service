@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/doge-tasks-service.iml" filepath="$PROJECT_DIR$/.idea/modules/doge-tasks-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/doge-tasks-service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/doge-tasks-service_main.iml" group="doge-tasks-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/doge-tasks-service_test.iml" filepath="$PROJECT_DIR$/.idea/modules/doge-tasks-service_test.iml" group="doge-tasks-service" />
+    </modules>
+  </component>
+</project>
