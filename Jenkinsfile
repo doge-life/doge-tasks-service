@@ -1,3 +1,11 @@
-node {
-    echo 'Hello from Pipeline'
+pipeline {
+    agent any
+
+    stages {
+        stage('Gradle') {
+            steps {
+                sh './gradlew clean check'
+            }
+        }
+    }
 }
