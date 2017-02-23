@@ -1,3 +1,5 @@
+stage "Build / Test"
+
 node {
-    echo 'Hello from Pipeline'
+    gradle clean build
 }
