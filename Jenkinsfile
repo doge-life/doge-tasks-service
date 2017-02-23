@@ -1,5 +1,5 @@
 stage "Build / Test"
 
 node {
-    gradle clean build
+    sh "gradle clean build"
 }
