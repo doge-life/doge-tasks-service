@@ -29,8 +29,8 @@ public class TodosServiceTest {
     @Test
     public void GetAllTodos() {
         Iterable<Todo> returnedTodoEntities = Arrays.asList(
-            new Todo(1, "This is the first Todo", false),
-            new Todo(2, "This is the completed Todo", true)
+            new Todo(1L, "This is the first Todo", false),
+            new Todo(2L, "This is the completed Todo", true)
         );
         when(repository.findAll()).thenReturn(returnedTodoEntities);
         List<TodoDomain> actualTodos = subject.getAllTodos();

@@ -1,16 +1,21 @@
 package org.doge.services;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Todo {
 
     @Id
-    private final long id;
-    private final String name;
-    private final boolean completed;
+    private long id;
+    private String name;
+    private boolean completed;
+
 }
