@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -36,8 +35,8 @@ public class TodosServiceTest {
         List<TodoDomain> actualTodos = subject.getAllTodos();
 
         List<TodoDomain> expectedTodos = Arrays.asList(
-            TodoDomain.builder().id(1).name("This is the first Todo").isCompleted(false).build(),
-            TodoDomain.builder().id(2).name("This is the completed Todo").isCompleted(true).build()
+            new TodoDomain(1, "This is the first Todo", false),
+            new TodoDomain(2, "This is the completed Todo", true)
         );
         assertThat(actualTodos, is(expectedTodos));
     }

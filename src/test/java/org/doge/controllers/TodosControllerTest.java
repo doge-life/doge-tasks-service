@@ -29,8 +29,8 @@ public class TodosControllerTest {
     @Test
     public void getAllTodos() {
         List<TodoDomain> expectedTodos = Arrays.asList(
-            TodoDomain.builder().id(1).name("Hello").build(),
-            TodoDomain.builder().id(2).name("World").build()
+            new TodoDomain(1, "Hello", false),
+            new TodoDomain(2, "World", false)
         );
         when(todosService.getAllTodos()).thenReturn(expectedTodos);
 

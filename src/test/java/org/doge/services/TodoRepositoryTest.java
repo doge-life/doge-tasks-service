@@ -20,9 +20,6 @@ public class TodoRepositoryTest {
 
     @Test
     public void findAll() {
-        repository.save(new Todo(1L, "Meow", false));
-        repository.save(new Todo(2L, "Meow", false));
-
         Iterable<Todo> actual = repository.findAll();
         assertThat(StreamSupport.stream(actual.spliterator(), false).count(), is(2L));
     }

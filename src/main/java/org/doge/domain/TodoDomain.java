@@ -1,12 +1,14 @@
 package org.doge.domain;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TodoDomain {
-   private long id;
-   private String name;
-   private boolean isCompleted;
+    private long id;
+    private String name;
+    private boolean isCompleted;
 }

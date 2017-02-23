@@ -23,10 +23,6 @@ public class TodosService {
     }
 
     private TodoDomain translate(Todo todo) {
-        return TodoDomain.builder()
-            .id(todo.getId())
-            .name(todo.getName())
-            .isCompleted(todo.isCompleted())
-            .build();
+        return new TodoDomain(todo.getId(), todo.getName(), todo.isCompleted());
     }
 }
