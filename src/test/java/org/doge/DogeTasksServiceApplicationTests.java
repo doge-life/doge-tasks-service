@@ -15,9 +15,9 @@ public class DogeTasksServiceApplicationTests {
     @Autowired
     private WebApplicationContext context;
 
-	@Test
-	public void contextLoads() {
-		Assert.notNull(context);
+    @Test
+    public void contextLoads() {
+        Assert.notNull(context);
     }
 
 }

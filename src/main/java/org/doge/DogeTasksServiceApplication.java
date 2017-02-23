@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DogeTasksServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DogeTasksServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DogeTasksServiceApplication.class, args);
+    }
 }
