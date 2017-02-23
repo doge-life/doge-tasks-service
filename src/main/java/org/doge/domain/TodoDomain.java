@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Todo {
-   private int id;
+public class TodoDomain {
+   private long id;
    private String name;
-   private boolean isFinished;
+   private boolean isCompleted;
 }

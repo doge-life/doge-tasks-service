@@ -1,0 +1,6 @@
+CREATE TABLE Todo
+(
+  id INTEGER PRIMARY KEY NOT NULL,
+  name VARCHAR(255),
+  completed BOOLEAN NOT NULL
+);
