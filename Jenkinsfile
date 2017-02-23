@@ -1,5 +1,11 @@
-stage "Build / Test"
+pipeline {
+    agent any
 
-node {
-    sh "./gradlew clean build"
+    stages {
+        stage('Gradle') {
+            steps {
+                sh './gradlew clean build'
+            }
+        }
+    }
 }
