@@ -7,5 +7,10 @@ pipeline {
                 sh './gradlew clean check'
             }
         }
+        stage('Static Analysis') {
+            steps {
+                sh './gradlew pmdMain'
+            }
+        }
     }
 }
