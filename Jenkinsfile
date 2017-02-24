@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Gradle') {
+        stage('Unit Tests') {
             steps {
-                sh './gradlew clean check'
+                sh './gradlew clean test'
             }
         }
         stage('Static Analysis') {
