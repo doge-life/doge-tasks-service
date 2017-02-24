@@ -10,6 +10,7 @@ pipeline {
         stage('Static Analysis') {
             steps {
                 sh './gradlew pmdMain'
+                archiveArtifacts artifacts: '**/build/reports/**', fingerprint: true
             }
         }
     }
