@@ -18,6 +18,9 @@ pipeline {
             }
         }
         stage('Deploy to Artifactory') {
+            when {
+                branch 'master'
+            }
             steps {
                 sh './gradlew publish'
             }
