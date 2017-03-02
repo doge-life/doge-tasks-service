@@ -19,7 +19,7 @@ apply plugin: 'maven-publish'
 
 war {
     baseName = 'doge-tasks-service'
-    version = '0.0.1-SNAPSHOT'
+    version = '0.0.1'
 }
 
 sourceCompatibility = 1.8
@@ -49,6 +49,19 @@ publishing {
             from components.web
         }
     }
+    repositories {
+        maven {
+            url 'http://ec2-34-207-197-10.compute-1.amazonaws.com/artifactory/app-releases-local'
+            credentials {
+                if (project.hasProperty('ARTIFACTORY_USR')) {
+                    username ARTIFACTORY_USR
+                }
+                if (project.hasProperty('ARTIFACTORY_PSW')) {
+                    password ARTIFACTORY_PSW
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -61,4 +74,3 @@ dependencies {
     runtime('org.hsqldb:hsqldb')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
-
