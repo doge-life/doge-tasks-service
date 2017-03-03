@@ -18,3 +18,6 @@ gradle-app.setting
 
 # OS X
 .DS_Store
+
+# Ignore Gemfile.lock because gems are resolved on the images where it runs
+packer/tests/Gemfile.lock

@@ -1,0 +1,41 @@
+{
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "ami_name": "doge-tasks-service-{{timestamp}}",
+            "ami_description": "AMI for doge-tasks-service",
+            "instance_type": "t2.micro",
+            "region": "us-east-1",
+            "source_ami": "ami-f4cc1de2",
+            "ssh_username": "ubuntu"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sudo apt-get update && sudo apt-get install -y ruby",
+                "sudo gem install bundler"
+            ]
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo apt-get update && sudo apt-get install -y openjdk-8-jre"
+            ]
+        },
+        {
+            "type": "file",
+            "source": "./tests",
+            "destination": "/tmp"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "cd /tmp/tests",
+                "bundle install",
+                "bundle exec rake spec"
+            ]
+        }
+    ]
+}
