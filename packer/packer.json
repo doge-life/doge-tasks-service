@@ -12,29 +12,15 @@
     ],
     "provisioners": [
         {
-            "type": "shell",
-            "inline": [
-                "sudo apt-get update && sudo apt-get install -y ruby",
-                "sudo gem install bundler"
-            ]
-        },
-        {
-            "type": "shell",
-            "inline": [
-                "sudo apt-get update && sudo apt-get install -y openjdk-8-jre"
-            ]
-        },
-        {
             "type": "file",
             "source": "./tests",
             "destination": "/tmp"
         },
         {
             "type": "shell",
-            "inline": [
-                "cd /tmp/tests",
-                "bundle install",
-                "bundle exec rake spec"
+            "scripts": [
+                "scripts/install_dependencies.sh",
+                "scripts/run_tests.sh"
             ]
         }
     ]
