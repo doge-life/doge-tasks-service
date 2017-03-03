@@ -18,10 +18,11 @@
         },
         {
             "type": "shell",
-            "scripts": [
-                "scripts/install_dependencies.sh",
-                "scripts/run_tests.sh"
-            ]
+            "script": "scripts/install_dependencies.sh"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/run_tests.sh"
         }
     ]
 }
