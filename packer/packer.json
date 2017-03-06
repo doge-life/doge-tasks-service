@@ -1,5 +1,28 @@
 {
+    "variables": {
+        "proxy_uname": "{{env `ASCENA_PROXY_UNAME`}}",
+        "proxy_password": "{{env `ASCENA_PROXY_PASSWORD`}}",
+        "proxy_host": "{{env `ASCENA_PROXY_HOST`}}",
+        "proxy_port": "{{env `ASCENA_PROXY_PORT`}}"
+    },
     "builders": [
+        {
+            "type": "docker",
+            "image": "ubuntu",
+            "commit": true,
+            "changes": [
+                "USER ubuntu"
+            ],
+            "run_command": [
+                "-d", "-it",
+                "-e", "PROXY_UNAME={{user `proxy_uname`}}",
+                "-e", "PROXY_PASSWORD={{user `proxy_password`}}",
+                "-e", "PROXY_HOST={{user `proxy_host`}}",
+                "-e", "PROXY_PORT={{user `proxy_port`}}",
+                "{{.Image}}",
+                "/bin/bash"
+            ]
+        },
         {
             "type": "amazon-ebs",
             "ami_name": "doge-tasks-service-{{timestamp}}",
@@ -12,6 +35,16 @@
     ],
     "provisioners": [
         {
+            "type": "shell",
+            "only": ["docker"],
+            "script": "scripts/configure_proxy.sh"
+        },
+        {
+            "type": "shell",
+            "only": ["docker"],
+            "script": "scripts/add_ubuntu_user.sh"
+        },
+        {
             "type": "file",
             "source": "./tests",
             "destination": "/tmp"
@@ -23,6 +56,13 @@
         {
             "type": "shell",
             "script": "scripts/run_tests.sh"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "docker-tag",
+            "only": ["docker"],
+            "repository": "doge/tomcat_ready"
         }
     ]
 }

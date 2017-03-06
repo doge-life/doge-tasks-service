@@ -21,3 +21,5 @@ gradle-app.setting
 
 # Ignore Gemfile.lock because gems are resolved on the images where it runs
 packer/tests/Gemfile.lock
+
+*.swp
