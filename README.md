@@ -12,3 +12,8 @@ Code Climate Issues | [![Issue Count](https://codeclimate.com/github/doge-life/d
 
 # doge-tasks-service
 A microservice for Doge Tasks!!
+
+## Instructions to deploy with Packer
+* Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
+* If on DogeData network, set `DOGE_PROXY_UNAME`, `DOGE_PROXY_PASSWORD`, `DOGE_PROXY_HOST` AND `DOGE_PROXY_PORT`
+* `packer build packer.json` from packer directory.

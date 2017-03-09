@@ -14,7 +14,8 @@
                 "USER ubuntu"
             ],
             "run_command": [
-                "-d", "-it",
+                "-d", 
+                "-it",
                 "-e", "PROXY_UNAME={{user `proxy_uname`}}",
                 "-e", "PROXY_PASSWORD={{user `proxy_password`}}",
                 "-e", "PROXY_HOST={{user `proxy_host`}}",
