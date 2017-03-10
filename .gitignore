@@ -23,3 +23,8 @@ gradle-app.setting
 packer/tests/Gemfile.lock
 
 *.swp
+
+
+# Terraform
+.terraform
+
