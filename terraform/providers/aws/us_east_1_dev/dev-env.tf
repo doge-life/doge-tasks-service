@@ -1,4 +1,6 @@
 variable "ami_id" {}
+variable "doge_private_key_file" {}
+variable "artifactory_credentials" {}
 
 provider "aws" {
     region = "us-east-1"
@@ -9,6 +11,25 @@ resource "aws_instance" "doge-task-service-dev-env" {
     instance_type = "t2.micro"
     vpc_security_group_ids = ["${aws_security_group.doge-task-service-dev.id}"]
     tags { Name = "Doge task-service - Development Environment" }
+    key_name = "doge-default"
+
+    connection {
+        user = "ubuntu"
+        private_key = "${file(var.doge_private_key_file)}"
+    }
+
+    provisioner "file" {
+        source = "import_artifact"
+        destination = "/tmp/import_artifact"
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+            "chmod +x /tmp/import_artifact",
+            "export ARTIFACTORY_CREDENTIALS=${var.artifactory_credentials}",
+            "/tmp/import_artifact"
+        ]
+    }
 }
 
 resource "aws_security_group" "doge-task-service-dev" {

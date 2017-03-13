@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+sudo curl -u $ARTIFACTORY_CREDENTIALS http://ec2-52-90-7-22.compute-1.amazonaws.com/artifactory/app-releases-local/org/doge/doge-tasks-service/0.0.1/doge-tasks-service-0.0.1.war -o /var/lib/tomcat8/webapps/doge-tasks-service-0.0.1.war
+
+sudo service tomcat8 restart
