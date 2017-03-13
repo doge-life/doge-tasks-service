@@ -30,5 +30,11 @@
             "type": "shell",
             "script": "scripts/run_tests.sh"
         }
+    ],
+    "post-processors": [
+        {
+            "type": "manifest",
+            "output": "manifest.json"
+        }
     ]
 }

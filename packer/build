@@ -2,6 +2,10 @@
 
 pushd `dirname "$0"`
 
-packer build packer.json
+if [ -e manifest.json ]; then
+  echo 'Using existing ami image'
+else
+  packer build packer.json
+fi
 
 popd
