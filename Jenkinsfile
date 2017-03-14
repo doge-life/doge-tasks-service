@@ -46,16 +46,6 @@ pipeline {
                 sh './packer/build'
             }
         }
-        stage('Update Git with Latest Image') {
-            when {
-                branch 'master'
-            }
-            steps {
-                withCredentials([string(credentialsId: 'github-oauth', variable: 'GITHUB_TOKEN')]) {
-                    sh './packer/update_git'
-                }
-            }
-        }
         stage('Deploy to Dev') {
             when {
                 branch 'master'
@@ -66,6 +56,16 @@ pipeline {
                     sh "./terraform/providers/aws/us_east_1_dev/plan ${getAMIFromPackerManifest()}"
                     sh "./terraform/providers/aws/us_east_1_dev/apply ${getAMIFromPackerManifest()}"
                     archiveArtifacts artifacts: "**/terraform.tfstate"
+                }
+            }
+        }
+        stage('Update Git with Latest Image') {
+            when {
+                branch 'master'
+            }
+            steps {
+                withCredentials([string(credentialsId: 'github-oauth', variable: 'GITHUB_TOKEN')]) {
+                    sh './packer/update_git'
                 }
             }
         }
