@@ -51,7 +51,7 @@ publishing {
     }
     repositories {
         maven {
-            url 'http://ec2-34-207-197-10.compute-1.amazonaws.com/artifactory/app-releases-local'
+            url 'http://ec2-52-90-7-22.compute-1.amazonaws.com/artifactory/app-releases-local'
             credentials {
                 if (project.hasProperty('ARTIFACTORY_USR')) {
                     username ARTIFACTORY_USR

@@ -17,3 +17,5 @@ A microservice for Doge Tasks!!
 * Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
 * If on DogeData network, set `DOGE_PROXY_UNAME`, `DOGE_PROXY_PASSWORD`, `DOGE_PROXY_HOST` AND `DOGE_PROXY_PORT`
 * `packer build packer.json` from packer directory.
+* To generate a new packer image during the build/deploy, you must delete the current `packer/manifest.json` file as part of your changes.
+  * If this file already exists, the build will not generate a new packer image and will instead use the existing image to deploy to dev.

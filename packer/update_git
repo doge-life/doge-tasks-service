@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+pushd `dirname "$0"`
+
+git add manifest.json
+git config user.name "Jenkins"
+git config user.email "jenkins@doge-life-is-the-best.rocks"
+
+if ! git diff-index --quiet HEAD --; then
+  git commit -m "Updating manifest.json with latest AMI"
+  git push https://${GITHUB_TOKEN}@github.com/doge-life/doge-tasks-service.git HEAD:$BRANCH_NAME
+fi
+
+popd
