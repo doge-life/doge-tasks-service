@@ -12,10 +12,23 @@ resource "aws_instance" "doge-task-service-dev-env" {
     vpc_security_group_ids = ["${aws_security_group.doge-task-service-dev.id}"]
     tags { Name = "Doge task-service - Development Environment" }
     key_name = "doge-default"
+}
+
+resource "null_resource" "deploy-doge-task-service-dev" {
+
+    /*
+      This trigger section forces this resource to be applied each time, since the timestamp
+      will always be different. Long term, this should be replaced with a unique version number
+      generated for each artifact.
+    */
+    triggers {
+        current_time = "${timestamp()}"
+    }
 
     connection {
         user = "ubuntu"
         private_key = "${file(var.doge_private_key_file)}"
+        host = "${aws_instance.doge-task-service-dev-env.public_ip}"
     }
 
     provisioner "file" {
