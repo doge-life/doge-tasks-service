@@ -28,6 +28,10 @@
         },
         {
             "type": "shell",
+            "script": "scripts/forward_ports.sh"
+        },
+        {
+            "type": "shell",
             "script": "scripts/run_tests.sh"
         }
     ],
