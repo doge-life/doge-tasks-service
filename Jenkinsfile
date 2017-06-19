@@ -1,52 +1,26 @@
 #!groovy
 
-def gradleImage = docker.image('gradle')
+node {
+    checkout scm
 
-pipeline {
-    agent any
+    withCredentials([
+        usernamePassword(usernameVariable: 'MAVEN_NEXUS_USR', passwordVariable: 'MAVEN_NEXUS_PSW', credentialsId: 'nexus-credentials'),
+        usernamePassword(usernameVariable: 'MAVEN_PROXY_USR', passwordVariable: 'MAVEN_PROXY_PSW', credentialsId: 'maven-proxy')
+        ]) {
 
-    stages {
-        stage('Clean workspace') {
-            steps {
-                sh 'git clean -fdx'
-            }
-        }
         stage('Unit Tests') {
-            steps {
-                gradleImage.inside() {
-                  sh './gradlew clean test'
-                }
-            }
-        }
-        stage('Static Analysis') {
-            steps {
-                sh './gradlew pmdMain'
-                archiveArtifacts artifacts: '**/build/reports/**', fingerprint: true
-            }
-        }
-        stage('Deploy to Artifactory') {
-            when {
-                branch 'master'
-            }
-            steps {
-                sh './gradlew publish'
-            }
+            sh './gradlew clean test'
         }
         stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t doge-life/doge-tasks-service .' 
-            }
+            sh 'docker build -t doge-life/doge-tasks-service .' 
         }
         stage('Publish to Registry') {
-            steps {
-              sh "scripts/publishToRegistry.sh ${NEXUS_CREDENTIALS_USR} ${NEXUS_CREDENTIALS_PSW} ${NEXUS_REGISTRY_URL}"
-            }
+            sh "scripts/publishToRegistry.sh ${NEXUS_CREDENTIALS_USR} ${NEXUS_CREDENTIALS_PSW} ${NEXUS_REGISTRY_URL}"
         }
-        stage('Update latest tag') {
-            when { branch 'master' }
-            steps {
-                sh "scripts/publishToRegistry.sh ${NEXUS_CREDENTIALS_USR} ${NEXUS_CREDENTIALS_PSW} ${NEXUS_REGISTRY_URL} latest"
-            }
-        } 
-    }
+        if (env.BRANCH_NAME == 'master') {
+          stage('Update latest tag') {
+              sh "scripts/publishToRegistry.sh ${NEXUS_CREDENTIALS_USR} ${NEXUS_CREDENTIALS_PSW} ${NEXUS_REGISTRY_URL} latest"
+          } 
+        }
+      }
 }
