@@ -1,5 +1,7 @@
 #!groovy
 
+def gradleImage = docker.image('gradle')
+
 pipeline {
     agent any
 
@@ -11,7 +13,9 @@ pipeline {
         }
         stage('Unit Tests') {
             steps {
-                sh './gradlew clean test'
+                gradleImage.inside() {
+                  sh './gradlew clean test'
+                }
             }
         }
         stage('Static Analysis') {
