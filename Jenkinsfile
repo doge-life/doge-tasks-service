@@ -41,33 +41,21 @@ pipeline {
                 sh './gradlew publish'
             }
         }
-        stage('Build and Verify Images') {
+        stage('Build Docker Image') {
             steps {
-                sh './packer/build'
+                sh 'docker build -t doge-life/doge-tasks-service .' 
             }
         }
-        stage('Deploy to Dev') {
-            when {
-                branch 'master'
-            }
+        stage('Publish to Registry') {
             steps {
-                withCredentials([file(credentialsId: 'doge-private-key-file', variable: 'TF_VAR_doge_private_key_file'),
-                                 usernameColonPassword(credentialsId: 'artifactory-deploy', variable: 'TF_VAR_artifactory_credentials')]) {
-                    sh "./terraform/providers/aws/us_east_1_dev/plan ${getAMIFromPackerManifest()}"
-                    sh "./terraform/providers/aws/us_east_1_dev/apply ${getAMIFromPackerManifest()}"
-                    archiveArtifacts artifacts: "**/terraform.tfstate"
-                }
+              sh "scripts/publishToRegistry.sh ${NEXUS_CREDENTIALS_USR} ${NEXUS_CREDENTIALS_PSW} ${NEXUS_REGISTRY_URL}"
             }
         }
-        stage('Update Git with Latest Image') {
-            when {
-                branch 'master'
-            }
+        stage('Update latest tag') {
+            when { branch 'master' }
             steps {
-                withCredentials([string(credentialsId: 'github-oauth', variable: 'GITHUB_TOKEN')]) {
-                    sh './packer/update_git'
-                }
+                sh "scripts/publishToRegistry.sh ${NEXUS_CREDENTIALS_USR} ${NEXUS_CREDENTIALS_PSW} ${NEXUS_REGISTRY_URL} latest"
             }
-        }
+        } 
     }
 }
